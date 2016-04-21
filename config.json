@@ -1,0 +1,9 @@
+{
+	"sftp":
+	{
+		"host" : "soringuga.ro",
+		"port" : "22",
+		"user" : "fastmed",
+		"password" : "fast-med123"
+	}
+}
