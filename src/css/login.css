@@ -1,0 +1,19 @@
+body { 
+  background: url(../assets/img/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.login-card{
+	width: 50%; 
+	position: absolute; 
+	left:25%; 
+	top: 25%;
+}
+
+.login-actions{
+	width:25%;
+	align-self:center;
+}

@@ -1,5 +1,4 @@
 <?php
-
 	session_start();
 	if($_SESSION['login']!='ok')
 		require 'login.php';
