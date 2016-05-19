@@ -20,7 +20,7 @@ if($result = db_query("SELECT * FROM fastmed_db.Users WHERE Username = '$usernam
         if(password_verify($password, $rs["Password"]))
         {
             unset($rs["Password"]);
-            //$_SESSION['login'] = 'ok';
+            $_SESSION['login'] = 'ok';
             gracefulExit(200, true, $rs);
         }
     }

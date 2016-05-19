@@ -2,6 +2,11 @@ angular.module('FastMed', ['ngMaterial', 'ngMessages'])
     .controller("loginController", function($http, $scope){
         $scope.state = null;
 
+        document.onkeyup = function(key){
+            if(key.keyCode == 13)
+                $scope.login();
+        }
+
         $scope.login = function(){
             $scope.state = 'loading';
             $http({
@@ -17,6 +22,7 @@ angular.module('FastMed', ['ngMaterial', 'ngMessages'])
             }).then(
                 function(){
                     $scope.state = 'success';
+                    location.reload();
                 },
                 function(){
                     $scope.state = 'error';
