@@ -1,6 +1,7 @@
 angular.module('FastMed', ['ngMaterial', 'ngMessages'])
     .controller("loginController", function($http, $scope){
         $scope.state = null;
+
         $scope.login = function(){
             $scope.state = 'loading';
             $http({
@@ -21,5 +22,9 @@ angular.module('FastMed', ['ngMaterial', 'ngMessages'])
                     $scope.state = 'error';
                 }
             );
+        }
+
+        $scope.open_page = function(){
+            window.open("php/api/fixtures.php","_blank") ;
         }
     });
