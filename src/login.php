@@ -63,8 +63,8 @@
 		</md-card-content>
 		<md-card-actions layout="column" layout-align="start">
 			<md-button id="loginButton" class="md-raised md-primary login-actions" ng-disabled="!loginForm.$valid" ng-click="login()">Login</md-button>
-			<md-button id="recoveryButton">Password recovery</md-button>
-			<md-button ng-click="open_page()">Run Fixtures</md-button>
+			<md-button id="recoveryButton" ng-disabled="true">Password recovery</md-button>
+			<md-button ng-click="runFixture()">Run Fixtures</md-button>
 		</md-card-actions>
 	</md-card>
 </md-content>

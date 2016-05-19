@@ -15,6 +15,9 @@
 		  `LastName` varchar(50) NOT NULL DEFAULT '',
 		  `Age` int(11) NOT NULL,
 		  `Address` varchar(255) NOT NULL DEFAULT '',
+		  `Hospitalized` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  `Released` datetime DEFAULT NULL,
+		  `Diagnosis` varchar(50) DEFAULT NULL,
 		  `BedID` int(11) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";

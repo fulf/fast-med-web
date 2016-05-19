@@ -30,7 +30,7 @@ angular.module('FastMed', ['ngMaterial', 'ngMessages'])
             );
         }
 
-        $scope.open_page = function(){
-            window.open("php/api/fixtures.php","_blank") ;
+        $scope.runFixture = function(){
+            window.open("api/fixtures.php","_blank") ;
         }
     });
