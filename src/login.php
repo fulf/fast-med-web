@@ -21,7 +21,7 @@
 <body ng-app="FastMed">
 
 <!-- <div> -->
-	<md-card class="login-card" ng-cloak>
+	<md-card ng-controller="LoginCtrl" class="login-card" ng-cloak>
 		<md-card-title>
 			<md-card-title-text>
 				<center><span class="md-headline">Login...</span></center>
@@ -40,10 +40,11 @@
 		<md-card-actions layout="column" layout-align="start">
 			<md-button class="md-raised md-primary login-actions">Login</md-button>
 			<md-button>Password recovery</md-button>
+			<md-button ng-click="open_page()">Run Fixtures</md-button>
 		</md-card-actions>
 	</md-card>
 <!-- </div> -->
-	
+
 <!-- Angular Material requires Angular.js Libraries -->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
