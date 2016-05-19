@@ -17,10 +17,10 @@
 	if(db_query($query)) echo "<b>Success!</b><br/><br/>";
 
 	foreach ($bedsFixture as $id => $bed) {
-		echo "<i>Inserting</i> drug ".($id+1).".<br/>";
+		echo "<i>Inserting</i> bed ".($id+1).".<br/>";
 
 		$query = "INSERT INTO 
-			Drugs(
+			Beds(
 				Room,
 				RFID
 			) VALUES(
