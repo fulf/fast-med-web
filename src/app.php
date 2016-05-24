@@ -1,6 +1,8 @@
 <?php
-
+	
 	session_start();
+	require "translator.php";
+	$_SESSION['language'] = "ro";
 	if($_SESSION['login']!='ok')
 		header('Location: index.php');
 
@@ -10,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Fast-Med | Login</title>
+<title>Fast-Med | <?php t("Dashboard") ?></title>
 <!-- Font Awesome style sheet -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
@@ -26,6 +28,7 @@
 <!-- Angular Material style sheet -->
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 <!-- Fast-Med Web Portal style sheet -->
+<link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body ng-app="FastMed">
@@ -35,11 +38,11 @@
 	<md-toolbar>
        <div class="md-toolbar-tools">
          <h2>
-           <span>Fast-Med Dashboard</span>
+           <span><i class="fa fa-heartbeat fa-6" aria-hidden="true"></i> <?php t("Fast-Med Dashboard")?></span>
          </h2>
          <span flex></span>
-				 <md-button>Add Patient <i class="fa fa-ambulance" aria-hidden="true"></i></md-button>
-         <md-button ng-click="logout()">Log Out <i class="fa fa-power-off" aria-hidden="true"></i>	</md-button>
+				 <md-button><?php t("Add Patient")?> <i class="fa fa-ambulance" aria-hidden="true"></i></md-button>
+         <md-button ng-click="logout()"><?php t("Log Out")?> <i class="fa fa-power-off" aria-hidden="true"></i>	</md-button>
        </div>
      </md-toolbar>
 
@@ -48,12 +51,12 @@
 <table class = "table table-hover">
 <thead>
 	<th style="text-align: center;"class="col-md-1">#</th>
-	<th style="text-align: center;" class="col-md-3">First Name</th>
-	<th style="text-align: center;" class="col-md-3">Last Name</th>
+	<th style="text-align: center;" class="col-md-3"><?php t("First Name")?></th>
+	<th style="text-align: center;" class="col-md-3"><?php t("Last Name")?></th>
 	<!-- <th>CNP</th> -->
-	<th style="text-align: center;" class="col-md-1">Age</th>
-	<th style="text-align: center;" class="col-md-2">Diagnostic</th>
-	<th style="text-align: center;" class="col-md-2">Actions</th>
+	<th style="text-align: center;" class="col-md-1"><?php t("Age")?></th>
+	<th style="text-align: center;" class="col-md-2"><?php t("Diagnostic")?></th>
+	<th style="text-align: center;" class="col-md-2"><?php t("Actions")?></th>
 </thead>
 <tbody>
 	<tr ng-repeat="(id, patient) in patients">
@@ -62,9 +65,9 @@
 		<td style="text-align: center;">{{patient.LastName}}</td>
 		<!-- <td>{{patient.CNP}}</td> -->
 		<td style="text-align: center;">{{patient.Age}}</td>
-		<td style="text-align: center;">{{patient.Diagnostic || "Undiagnosed"}}</td>
+		<td style="text-align: center;">{{patient.Diagnostic || "<?php t("Undiagnosed")?>"}}</td>
 		<td style="text-align: center;"><md-button class="md-icon-button " aria-label="Settings">
-		<md-icon <i style="color: green;"class="fa fa-eye" aria-hidden="true"></i></md-icon>
+		<md-icon><i class="fa fa-eye" aria-hidden="true"></i></md-icon>
 		</md-button>
 		</td>
 
