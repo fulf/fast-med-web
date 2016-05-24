@@ -1,4 +1,8 @@
 angular.module('FastMed', ['ngMaterial', 'ngMessages'])
+    .config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette("green");
+    })
     .controller("loginController", function($http, $scope){
         $scope.state = null;
 

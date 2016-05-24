@@ -8,14 +8,14 @@
   background-size: cover;
 }
 
-.login-card{
+.login-card {
 	width: 50%; 
 	position: absolute; 
 	left:25%; 
 	top: 25%;
 }
 
-.login-actions{
+.login-actions {
 	width:25%;
 	align-self:center;
 }
