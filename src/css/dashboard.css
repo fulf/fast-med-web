@@ -1,3 +1,52 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.table-container {
+    flex: 1;
+}
+
+.navbar {
+    height: 40px;
+    padding: 5px;
+    margin: 0;
+}
+
+table {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+}
+table thead {
+    /* head takes the height it requires,
+    and it's not scaled when table is resized */
+    width: 100%;
+    flex: 0 0 auto;
+}
+table tbody {
+    /* body takes all the remaining available space */
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+table tbody tr {
+    width: 100%;
+}
+table thead, table tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
 .table>tbody>tr>td {
-    vertical-align:middle
+    vertical-align: middle;
+}
+
+.page-select {
+    display: inline-block;
+    width: 50px;
+    text-align: center;
 }

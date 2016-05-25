@@ -31,11 +31,9 @@
 <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
-<body ng-app="FastMed">
+<body ng-app="FastMed"  >
 
-<md-content class="md-app" ng-controller="dashboardController">
-
-	<md-toolbar>
+	<md-toolbar ng-controller="toolbarController">
        <div class="md-toolbar-tools">
          <h2>
            <span><i class="fa fa-heartbeat fa-6" aria-hidden="true"></i> <?php t("Fast-Med Dashboard")?></span>
@@ -46,36 +44,58 @@
        </div>
      </md-toolbar>
 
-
-
-<table class = "table table-hover">
-<thead>
-	<th style="text-align: center;"class="col-md-1">#</th>
-	<th style="text-align: center;" class="col-md-3"><?php t("First Name")?></th>
-	<th style="text-align: center;" class="col-md-3"><?php t("Last Name")?></th>
-	<!-- <th>CNP</th> -->
-	<th style="text-align: center;" class="col-md-1"><?php t("Age")?></th>
-	<th style="text-align: center;" class="col-md-2"><?php t("Diagnostic")?></th>
-	<th style="text-align: center;" class="col-md-2"><?php t("Actions")?></th>
-</thead>
-<tbody>
-	<tr ng-repeat="(id, patient) in patients">
-		<td style="text-align: center;">{{id+1}}</td>
-		<td style="text-align: center;">{{patient.FirstName}}</td>
-		<td style="text-align: center;">{{patient.LastName}}</td>
-		<!-- <td>{{patient.CNP}}</td> -->
-		<td style="text-align: center;">{{patient.Age}}</td>
-		<td style="text-align: center;">{{patient.Diagnostic || "<?php t("Undiagnosed")?>"}}</td>
-		<td style="text-align: center;"><md-button class="md-icon-button " aria-label="Settings">
-		<md-icon><i class="fa fa-eye" aria-hidden="true"></i></md-icon>
-		</md-button>
-		</td>
-
-		</tr>
-</tbody>
-</table>
+<md-content class="md-app" flex ng-controller="tableController">
+	<div class="table-container">
+		<table class = "table table-hover">
+		<thead>
+			<th style="text-align: center;" class="col-md-1">#</th>
+			<th style="text-align: center;" class="col-md-3"><?php t("First Name")?></th>
+			<th style="text-align: center;" class="col-md-3"><?php t("Last Name")?></th>
+			<!-- <th>CNP</th> -->
+			<th style="text-align: center;" class="col-md-1"><?php t("Age")?></th>
+			<th style="text-align: center;" class="col-md-2"><?php t("Diagnostic")?></th>
+			<th style="text-align: center;" class="col-md-2"><?php t("Actions")?></th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="(id, patient) in patients">
+				<td style="text-align: center;" class="col-md-1">{{ (table.Page - 1) * table.Limit + id + 1 }}</td>
+				<td style="text-align: center;" class="col-md-3">{{ patient.FirstName }}</td>
+				<td style="text-align: center;" class="col-md-3">{{ patient.LastName }}</td>
+				<!-- <td>{{patient.CNP}}</td> -->
+				<td style="text-align: center;" class="col-md-1">{{ patient.Age }}</td>
+				<td style="text-align: center;" class="col-md-2">{{ patient.Diagnostic || "<?php t("Undiagnosed")?>" }}</td>
+				<td style="text-align: center;" class="col-md-2">
+					<md-button class="md-icon-button">
+						<md-icon><i class="fa fa-eye"></i></md-icon>
+					</md-button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 </md-content>
-
+<nav class="navbar navbar-default" ng-controller="navbarController">
+    <div style="float: left;">
+        <md-button class="md-icon-button" ng-click="loadPatients(1)" ng-disabled="page==1">
+            <md-icon><i class="fa fa-angle-double-left"></i></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="loadPatients(page-1)" ng-disabled="page==1">
+            <md-icon><i class="fa fa-angle-left"></i></md-icon>
+        </md-button>
+        <?php t("Page") ?>
+            <input class="form-control page-select" ng-model="page" ng-blur="loadPatients(page)">
+        / {{table.Pages}}
+        <md-button class="md-icon-button" ng-click="loadPatients(page+1)" ng-disabled="page==table.Pages">
+            <md-icon><i class="fa fa-angle-right"></i></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="loadPatients(table.Pages)" ng-disabled="page==table.Pages">
+            <md-icon><i class="fa fa-angle-double-right"></i></md-icon>
+        </md-button>
+    </div>
+    <div style="float: right;">
+        <input class="form-control page-select" ng-model="limit" ng-blur="loadPatients(1, limit)"> <?php t("per page") ?>
+    </div>
+</nav>
 
 <!-- Angular Material requires Angular.js Libraries -->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
