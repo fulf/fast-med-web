@@ -7,15 +7,10 @@ $page = $limit * ((isset($_GET['page']) ? $_GET['page'] : 1) - 1 );
 $orderBy = isset($_GET['orderBy']) ? $_GET['orderBy'] : 'ID';
 $orderDir = isset($_GET['orderDir']) ? $_GET['orderDir'] : 'Asc';
 
-unset($_GET['limit']);
-unset($_GET['page']);
-unset($_GET['orderBy']);
-unset($_GET['orderDir']);
-
-if(count($_GET) > 0) {
-    $whereCond = "AND ";
-    foreach ($_GET as $key => $val)
-        $whereCond .= $key . " LIKE '%" . $val . "%'";
+if(isset($_GET['filters'])) {
+    $filters = json_decode($_GET['filters'], true);
+    foreach ($filters as $key => $val)
+        $whereCond .= " AND " . $key . " LIKE '%" . $val . "%'";
 }
 
 if($result = db_query("SELECT COUNT(*) FROM fastmed_db.Patients WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir")) {
