@@ -21,7 +21,9 @@ function t($s)
             "Diagnostic" => "Diagnostic",
             "Actions" => "Acțiuni",
             "Undiagnosed" => "Nediagnosticat",
-            "Log Out" => "Deconectare"
+            "Log Out" => "Deconectare",
+            "Page" => "Pagina",
+            "per page" => "pe pagină"
         )
     );
     session_start();
