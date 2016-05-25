@@ -3,18 +3,11 @@
 	{
 		$conn = mysqli_connect("db.fastmed.soringuga.ro", "fastmed", "fastmed123", "fastmed_db");
 
-		if (!$conn) {
-		    echo "Error: Unable to connect to MySQL." . PHP_EOL;
-		    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-		    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-		    exit;
-		}
+		if (!$conn)
+            gracefulExit(400, false, "Error: " . mysqli_connect_errno() . ": " .  mysqli_connect_error());
 
 		if (!$rs = mysqli_query($conn, $query))
-		{
-			echo "<b>Error:</b> ".mysqli_error($conn)."<br/><br/>";
-			return false;
-		}
-		return $rs;
+			gracefulExit(400, false, mysqli_error($conn));
+
+        return $rs;
 	}
-?>
