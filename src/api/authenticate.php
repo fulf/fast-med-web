@@ -16,4 +16,3 @@ function gracefulExit($status, $success, $data)
 		"data"=>$data
 	)));
 }
-?>

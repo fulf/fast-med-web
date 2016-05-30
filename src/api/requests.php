@@ -6,11 +6,9 @@ if($_SESSION['login'] != 'ok')
     gracefulExit(401, false, "Unauthorised request. This incident has been reported.");
 
 if($_SERVER['REQUEST_METHOD'] == 'GET')
-    require 'patients/GET.php';
-else if($_SERVER['REQUEST_METHOD'] == 'DELETE')
-    require 'patients/DELETE.php';
+    require 'requests/GET.php';
 else if($_SERVER['REQUEST_METHOD'] == 'POST')
-    require 'patients/POST.php';
+    require 'requests/POST.php';
 
 function gracefulExit($status, $success, $data)
 {
