@@ -20,8 +20,8 @@ angular.module('FastMed', ['ngMaterial', 'ngMessages'])
                     'Content-Type': 'application/json'
                 },
                 data: { 
-                    'username': $scope.user.username,
-                    'password': $scope.user.password
+                    'Username': $scope.user.username,
+                    'Password': $scope.user.password
                 }
             }).then(
                 function(){

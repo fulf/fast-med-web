@@ -2,13 +2,13 @@
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if(!isset($data["username"]) || !isset($data["password"])) {
+if(!isset($data["Username"]) || !isset($data["Password"])) {
     gracefulExit(400, false, "Request data malformed.");
 }
 else
 {
-    $username = $data['username'];
-    $password = $data['password'];
+    $username = $data['Username'];
+    $password = $data['Password'];
 }
 
 require_once "conn.php";
