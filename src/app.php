@@ -39,7 +39,7 @@
            <span><i class="fa fa-heartbeat fa-6" aria-hidden="true"></i> <?php t("Fast-Med Dashboard")?></span>
          </h2>
          <span flex></span>
-				 <md-button><?php t("Add Patient")?> <i class="fa fa-ambulance" aria-hidden="true"></i></md-button>
+				 <md-button ng-click="addPatient()"><?php t("Add Patient")?> <i class="fa fa-ambulance" aria-hidden="true"></i></md-button>
          <md-button ng-click="logout()"><?php t("Log Out")?> <i class="fa fa-power-off" aria-hidden="true"></i>	</md-button>
        </div>
      </md-toolbar>

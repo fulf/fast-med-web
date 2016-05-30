@@ -71,8 +71,23 @@ angular.module('FastMed', ['ngMaterial'])
                 location.reload();
             }
         )
+    };
+    
+    $scope.addPatient = function(){
+        $mdDialog.show({
+            controller: 'addPatientController',
+            templateUrl: 'assets/templates/addPatient.tmpl.html',
+            clickOutsideToClose: true
+        }).then(function(answer) {
+            $scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+            $scope.status = 'You cancelled the dialog.';
+        });;
     }
 })
 .controller('viewPatientController', function($scope, patient){
     $scope.patient = patient;
+})
+.controller('addPatientController', function($scope){
+    console.log("Hello world!");
 });
