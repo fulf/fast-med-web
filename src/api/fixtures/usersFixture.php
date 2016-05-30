@@ -38,6 +38,4 @@
 			);";
 			if(db_query($query)) echo "<b>Success!</b><br/><br/>";
 	}
-
 	echo "Done.<br/>";
-?>
