@@ -3,13 +3,29 @@ angular.module('FastMed', ['ngMaterial'])
 	$mdThemingProvider.theme('default')
 		.primaryPalette("green");
 })
-.controller('tableController', function($rootScope) {
+.controller('tableController', function($rootScope, $scope, $mdDialog) {
     $rootScope.page = 1;
     $rootScope.limit = 20;
     $rootScope.table = {
         Page: 1,
         Limit: 20
     };
+
+    $scope.viewPatient = function (patient) {
+        $mdDialog.show({
+            controller: 'viewPatientController',
+            templateUrl: 'assets/templates/viewPatient.tmpl.html',
+            locals: {
+                patient: patient
+            },
+            clickOutsideToClose: true
+        })
+        .then(function(answer) {
+            $scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+            $scope.status = 'You cancelled the dialog.';
+        });
+    }
 })
 .controller('navbarController', function($scope, $rootScope, $http) {
     $scope.loadPatients = function(page, limit) {
@@ -56,4 +72,7 @@ angular.module('FastMed', ['ngMaterial'])
             }
         )
     }
+})
+.controller('viewPatientController', function($scope, patient){
+    $scope.patient = patient;
 });
