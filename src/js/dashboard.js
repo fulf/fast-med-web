@@ -61,7 +61,7 @@ angular.module('FastMed', ['ngMaterial'])
     }
     $scope.loadPatients(1,20);
 })
-.controller('toolbarController', function($scope, $http) {
+.controller('toolbarController', function($scope, $http, $mdDialog) {
     $scope.logout = function(){
         $http({
             method: "DELETE",
@@ -72,7 +72,7 @@ angular.module('FastMed', ['ngMaterial'])
             }
         )
     };
-    
+
     $scope.addPatient = function(){
         $mdDialog.show({
             controller: 'addPatientController',

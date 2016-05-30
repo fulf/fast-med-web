@@ -1,0 +1,30 @@
+<md-dialog ng-cloak width="500">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      Viewing patient...
+      <span flex></span>
+       <md-button class="md-icon-button" ng-click="cancel()">
+         <md-icon><i class="fa fa-close"></i></md-icon>
+       </md-button>
+    </div>
+  </md-toolbar>
+<md-dialog-content>
+    <img ng-href="assets/images/patients/{{ patient.Image || "no-image" }}.jpg"></img>
+    <p class="md-headline">{{patient.FirstName}} {{patient.LastName}}</p>
+    <p class="md-subhead">Room : {{patient.BedID}}</p>
+    <p>Hospitalized : {{patient.Hospitalized}} Released : {{patinet.Released}}</p>
+    <p>CNP : {{patient.CNP}}  Age : {{patient.Age}}</p>
+    <p>Address : {{patient.Address}}</p>
+    <p>Diagnosis : {{patient.Diagnosis}}</p>
+
+  </md-dialog-content>
+
+  <md-dialog-actions>
+    <md-button><i class="fa fa-pencil-square" aria-hidden="true"></i></md-button>
+    <md-button><i class="fa fa-sign-out" aria-hidden="true"></i></md-button>
+    <md-button ng-if="false"><i class="fa fa-check-circle" aria-hidden="true"></i></md-button>
+    <md-button><i class="fa fa-file-text-o" aria-hidden="true"></i></md-button>
+    <md-button ng-if="false"><i class="fa fa-times-circle" aria-hidden="true"></i></md-button>
+  </md-dialog-actions>
+
+</md-dialog>
