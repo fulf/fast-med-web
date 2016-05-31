@@ -32,13 +32,19 @@ function t($s)
             "Unreleased" => "Internat",
             "years old" => "ani",
             "Editing patient" => "Editare pacient",
-            "Send drug" => "Trimite medicament",
+            "Edit patient" => "Editare pacient",
+            "Send drug" => "Trimitere medicament",
             "Viewing history" => "Vizualizare istoric",
+            "View history" => "Vizualizare istoric",
+            "Release patient" => "Externare pacient",
             "Drug" => "Medicament",
             "Date" => "Data",
             "Status" => "Stare",
             "Adding patient" => "Adăugare pacient",
-            "Diagnosis" => "Diagnostic"
+            "Diagnosis" => "Diagnostic",
+            "Confirm" => "Confirmare",
+            "Cancel" => "Anulare",
+            "Back" => "Înapoi"
         )
     );
     session_start();

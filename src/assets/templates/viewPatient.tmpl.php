@@ -10,7 +10,7 @@ require "../../translator.php";
             <span ng-if="state=='medicate'"><?php t("Send drug") ?>...</span>
             <span ng-if="state=='history'"><?php t("Viewing history") ?>...</span>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="close()">
+            <md-button class="md-icon-button" ng-click="close()" md-autofocus>
                 <md-icon><i class="fa fa-close"></i></md-icon>
             </md-button>
         </div>
@@ -63,8 +63,8 @@ require "../../translator.php";
                         </table>
                     </div>
                 </div>
-                <div ng-if="state=='editing'">
-                    <div style="font-size:20px; rgb(76,175,80);">
+                <div ng-if="state=='editing'" style="margin: auto 0 auto 24px; flex: 1">
+                    <div style="font-size:20px; rgb(76,175,80); display: flex">
                         <md-input-container flex>
                             <label><?php t("First Name") ?></label>
                             <input ng-model="patient.FirstName">
@@ -120,17 +120,38 @@ require "../../translator.php";
 
     <md-dialog-actions style="padding: 0; display: block; text-align: center;">
         <div ng-if="state=='viewing'">
-            <md-button ng-click="edit()"><i class="fa fa-pencil-square" aria-hidden="true"></i><!--Edit--></md-button>
-            <md-button ng-click="medicate()"><i class="fa fa-medkit" aria-hidden="true"></i><!--Send drug--></md-button>
-            <md-button ng-click="history()"><i class="fa fa-file-text-o" aria-hidden="true"></i><!--View history--></md-button>
-            <md-button ng-click="release()"><i class="fa fa-sign-out" aria-hidden="true"></i><!--Release--></md-button>
+            <md-button ng-click="edit()">
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                <md-tooltip><?php t("Edit patient");?></md-tooltip>
+            </md-button>
+            <md-button ng-click="medicate()">
+                <i class="fa fa-medkit" aria-hidden="true"></i>
+                <md-tooltip><?php t("Send drug")?></md-tooltip>
+            </md-button>
+            <md-button ng-click="history()">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                <md-tooltip><?php t("View history")?></md-tooltip>
+            </md-button>
+            <md-button ng-click="release()">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <md-tooltip><?php t("Release patient")?></md-tooltip>
+            </md-button>
         </div>
         <div ng-if="state=='editing' || state=='medicate'">
-            <md-button ng-click="save()"><i class="fa fa-check-circle" aria-hidden="true"></i><!--Confirm--></md-button>
-            <md-button ng-click="cancel()"><i class="fa fa-times-circle" aria-hidden="true"></i><!--Cancel--></md-button>
+            <md-button ng-click="save()">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <md-tooltip><?php t("Confirm")?></md-tooltip>
+            </md-button>
+            <md-button ng-click="cancel()">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                <md-tooltip><?php t("Cancel")?></md-tooltip>
+            </md-button>
         </div>
         <div ng-if="state=='history'">
-            <md-button ng-click="back()"><i class="fa fa-chevron-circle-left"></i></md-button>
+            <md-button ng-click="back()">
+                <i class="fa fa-chevron-circle-left"></i>
+                <md-tooltip>Back</md-tooltip>
+            </md-button>
         </div>
     </md-dialog-actions>
 
