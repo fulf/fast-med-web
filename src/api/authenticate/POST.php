@@ -21,6 +21,7 @@ if($result = db_query("SELECT * FROM fastmed_db.Users WHERE Username = '$usernam
         {
             unset($rs["Password"]);
             $_SESSION['login'] = 'ok';
+            $_SESSION['UserID'] = $rs["ID"];
             gracefulExit(200, true, $rs);
         }
     }

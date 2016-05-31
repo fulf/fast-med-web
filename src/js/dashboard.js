@@ -14,7 +14,7 @@ angular.module('FastMed', ['ngMaterial'])
     $scope.viewPatient = function (patient) {
         $mdDialog.show({
             controller: 'viewPatientController',
-            templateUrl: 'assets/templates/viewPatient.tmpl.html',
+            templateUrl: 'assets/templates/viewPatient.tmpl.php',
             locals: {
                 patient: patient
             },
@@ -76,18 +76,50 @@ angular.module('FastMed', ['ngMaterial'])
     $scope.addPatient = function(){
         $mdDialog.show({
             controller: 'addPatientController',
-            templateUrl: 'assets/templates/addPatient.tmpl.html',
+            templateUrl: 'assets/templates/addPatient.tmpl.php',
             clickOutsideToClose: true
         }).then(function(answer) {
-            $scope.status = 'You said the information was "' + answer + '".';
+            console.log("Success");
         }, function() {
-            $scope.status = 'You cancelled the dialog.';
-        });;
+            console.log("Error");
+        });
     }
 })
-.controller('viewPatientController', function($scope, patient){
+.controller('viewPatientController', function($scope, $mdDialog, patient){
     $scope.patient = patient;
+    $scope.state = 'viewing';
+    $scope.edit = function(){
+        //TODO: Implement editing
+        $scope.state = 'editing';
+    };
+    $scope.save = function(){
+        //TODO: Implement saving
+        $scope.state = 'viewing';
+    };
+    $scope.cancel = function(){
+        //TODO: Cleanup canceling
+        $scope.state = 'viewing';
+    };
+    $scope.close = function(){
+        $mdDialog.hide();
+    };
+    $scope.release = function(){
+        //TODO: Implement releasing
+        $mdDialog.hide();
+    };
+    $scope.medicate = function(){
+        //TODO: Implement medication
+      $scope.state = "medicate";
+    };
+    $scope.history = function(){
+        //TODO: Implement history
+        $scope.state = "history";
+    };
+    $scope.back = function(){
+        $scope.state = "viewing";
+    }
 })
 .controller('addPatientController', function($scope){
-    console.log("Hello world!");
+    //TODO: Implement adding a patient
+    $scope.patient = {};
 });

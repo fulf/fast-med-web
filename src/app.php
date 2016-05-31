@@ -1,11 +1,9 @@
 <?php
-	
 	session_start();
 	require "translator.php";
 	$_SESSION['language'] = "ro";
 	if($_SESSION['login']!='ok')
 		header('Location: index.php');
-
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +29,14 @@
 <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
-<body ng-app="FastMed"  >
+<body ng-app="FastMed">
 
+<!--TODO: Implement dashboard errors-->
+<md-toolbar class="md-warn" ng-if="false">
+	<div class="md-toolbar-tools" style="text-align: center;">
+		<span flex>A apărut o eroare...</span>
+	</div>
+</md-toolbar>
 	<md-toolbar ng-controller="toolbarController">
        <div class="md-toolbar-tools">
          <h2>

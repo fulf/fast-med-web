@@ -2,7 +2,7 @@
 
 function bind($string)
 {
-    return "'".$string."'";
+    return isset($string) ? "'".$string."', " : "NULL, ";
 }
 
 require_once "conn.php";
@@ -22,12 +22,12 @@ if($result = db_query("INSERT INTO
 				Diagnosis,
 				BedID
 			) VALUES(
-				".bind($data["CNP"]).",
-				".bind($data["FirstName"]).",
-				".bind($data["LastName"]).",
-				".bind($data["Age"]).",
-				".bind($data["Address"]).",
-				".(isset($data['Diagnosis']) ? bind($data["Diagnosis"]) : "NULL").",
+				".bind($data["CNP"])."
+				".bind($data["FirstName"])."
+				".bind($data["LastName"])."
+				".bind($data["Age"])."
+				".bind($data["Address"])."
+				".bind($data["Diagnosis"])."
 				".bind($data["BedID"])."
 			);")) {
     if($result = db_query("SELECT * FROM fastmed_db.Patients WHERE ID = LAST_INSERT_ID()"))

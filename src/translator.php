@@ -23,13 +23,28 @@ function t($s)
             "Undiagnosed" => "Nediagnosticat",
             "Log Out" => "Deconectare",
             "Page" => "Pagina",
-            "per page" => "pe pagină"
+            "per page" => "pe pagină",
+            "Add patient" => "Adaugă pacient",
+            "Address" => "Adresă",
+            "Assign bed" => "Asignează pat",
+            "Add" => "Adaugă",
+            "Viewing patient" => "Vizualizare pacient",
+            "Unreleased" => "Internat",
+            "years old" => "ani",
+            "Editing patient" => "Editare pacient",
+            "Send drug" => "Trimite medicament",
+            "Viewing history" => "Vizualizare istoric",
+            "Drug" => "Medicament",
+            "Date" => "Data",
+            "Status" => "Stare",
+            "Adding patient" => "Adăugare pacient",
+            "Diagnosis" => "Diagnostic"
         )
     );
     session_start();
-    //ToDo: Check language options
-    if(isset($_DICTIONARY[$_SESSION['language']]) && isset($_DICTIONARY[$_SESSION['language']][$s]))
+    if (isset($_DICTIONARY[$_SESSION['language']]) && isset($_DICTIONARY[$_SESSION['language']][$s]))
         echo $_DICTIONARY[$_SESSION['language']][$s];
     else echo $s;
 }
+
 ?>
