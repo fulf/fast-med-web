@@ -41,10 +41,14 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <md-input-container class="md-block">
+            <div style="display: flex">
+                <md-input-container class="md-block" style="flex:1">
                     <label><?php t("Age") ?></label>
                     <input style="text-align: center" ng-model="patient.Age">
+                </md-input-container>
+                <md-input-container class="md-block" style="flex: 5"">
+                    <label><?php t("CNP") ?></label>
+                    <input style="text-align: center" ng-model="patient.CNP">
                 </md-input-container>
             </div>
             <div>
@@ -63,8 +67,8 @@
     </md-dialog-content>
 
     <md-dialog-actions>
-        <md-button class="md-raised md-primary"><?php t("Add")?></md-button>
-        <md-button>Cancel</md-button>
+        <md-button class="md-raised md-primary" ng-click="add()")><?php t("Add")?></md-button>
+        <md-button ng-click="close()">Cancel</md-button>
     </md-dialog-actions>
 
 </md-dialog>

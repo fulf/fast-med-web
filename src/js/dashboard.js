@@ -58,7 +58,7 @@ angular.module('FastMed', ['ngMaterial'])
                 }
             }
         );
-    }
+    };
     $scope.loadPatients(1,20);
 })
 .controller('toolbarController', function($scope, $http, $mdDialog) {
@@ -105,6 +105,18 @@ angular.module('FastMed', ['ngMaterial'])
     };
     $scope.release = function(){
         //TODO: Implement releasing
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function(){
+            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        });
+
         $mdDialog.hide();
     };
     $scope.medicate = function(){
@@ -119,7 +131,13 @@ angular.module('FastMed', ['ngMaterial'])
         $scope.state = "viewing";
     }
 })
-.controller('addPatientController', function($scope){
+.controller('addPatientController', function($scope, $mdDialog){
     //TODO: Implement adding a patient
     $scope.patient = {};
+    $scope.close = function(){
+        $mdDialog.hide();
+    };
+    $scope.add = function(){
+        $mdDialog.hide();
+    }
 });

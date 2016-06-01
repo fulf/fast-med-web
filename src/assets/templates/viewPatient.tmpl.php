@@ -5,10 +5,10 @@ require "../../translator.php";
 <md-dialog ng-cloak style="width: 50%; max-height: 80%">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <span ng-if="state=='viewing'"><?php t("Viewing patient") ?>...</span>
-            <span ng-if="state=='editing'"><?php t("Editing patient") ?>...</span>
-            <span ng-if="state=='medicate'"><?php t("Send drug") ?>...</span>
-            <span ng-if="state=='history'"><?php t("Viewing history") ?>...</span>
+            <span ng-if="state=='viewing'"><?php t("Viewing patient") ?></span>
+            <span ng-if="state=='editing'"><?php t("Editing patient") ?></span>
+            <span ng-if="state=='medicate'"><?php t("Send drug") ?></span>
+            <span ng-if="state=='history'"><?php t("Viewing history") ?></span>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="close()" md-autofocus>
                 <md-icon><i class="fa fa-close"></i></md-icon>
@@ -46,7 +46,7 @@ require "../../translator.php";
                         </md-input-container>
                     </div>
                     <div ng-if="state=='history'" style="margin: auto 0 auto 0px; width: 100%" flex>
-                        //TODO: Create proper history table
+                        <!--TODO: Create proper history table-->
                         <table class="table table-hover">
                             <thead>
                             <th style="text-align: center;"><?php t("Robot")?></th>
@@ -91,10 +91,14 @@ require "../../translator.php";
 
             </div>
             <div ng-if="state=='viewing'" style="text-align: center;">{{patient.Age}} <?php t("years old") ?></div>
-            <div ng-if="state=='editing'">
-                <md-input-container class="md-block">
+            <div ng-if="state=='editing'" style="display: flex;">
+                <md-input-container class="md-block" style="flex:1">
                     <label><?php t("Age") ?></label>
                     <input style="text-align: center" ng-model="patient.Age">
+                </md-input-container>
+                <md-input-container class="md-block" style="flex: 5"">
+                    <label><?php t("CNP") ?></label>
+                    <input style="text-align: center" ng-model="patient.CNP">
                 </md-input-container>
             </div>
             <div ng-if="state=='viewing'" style="text-align: center; margin-top:10px">
