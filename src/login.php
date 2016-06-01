@@ -71,8 +71,8 @@
 			<md-button id="recoveryButton" ng-disabled="true"><?php t("Password recovery") ?></md-button>
 			<md-button ng-click="runFixture()"><?php t("Run Fixtures") ?></md-button>
 			<div style="text-align: center">
-				<md-button ng-click="setLanguage('en')" class="md-icon-button <?=$_SESSION['language']=='en' ? 'selected' : ''?>"><span class="flag-icon flag-icon-gb"></span></md-button>
-				<md-button ng-click="setLanguage('ro')" class="md-icon-button <?=$_SESSION['language']=='ro' ? 'selected' : ''?>"><span class="flag-icon flag-icon-ro"></span></md-button>
+				<md-button ng-click="setLanguage('en')" ng-disabled="'<?=$_SESSION['language']?>'=='en'" class="md-icon-button <?=$_SESSION['language']=='en' ? 'selected' : ''?>"><span class="flag-icon flag-icon-gb"></span></md-button>
+				<md-button ng-click="setLanguage('ro')" ng-disabled="'<?=$_SESSION['language']?>'=='ro'" class="md-icon-button <?=$_SESSION['language']=='ro' ? 'selected' : ''?>"><span class="flag-icon flag-icon-ro"></span></md-button>
 			</div>
 		</md-card-actions>
 	</md-card>
