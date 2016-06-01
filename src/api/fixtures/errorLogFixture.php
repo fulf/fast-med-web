@@ -10,7 +10,7 @@ $query = "CREATE TABLE `ErrorLog` (
           `ActionID` int(11) NOT NULL,
           `RobotID` int(11) NOT NULL,
           `Type` varchar(50) NOT NULL,
-          `Timestamp` datetime NOT NULL,
+          `Timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY (`ID`)
         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
 if(db_query($query)) echo "<b>Success!</b><br/><br/>";

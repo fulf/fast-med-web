@@ -10,7 +10,7 @@ $query = "CREATE TABLE `Requests` (
           `Type` varchar(50) NOT NULL,
           `DrugID` int(11) DEFAULT NULL,
           `PatientID` int(11) DEFAULT NULL,
-          `Timestamp` datetime NOT NULL,
+          `Timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
           `UserID` int(11) NOT NULL,
           `Acknowledged` varchar(10) NOT NULL DEFAULT 'No',
           `RobotID` int(11) DEFAULT NULL,
