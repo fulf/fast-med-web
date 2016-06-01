@@ -14,7 +14,7 @@ if(!isset($data["Type"]))
     
 if(!in_array($data["Type"], ["Delivery", "Manual", "Automatic"]))
     gracefulExit(400, false, "Request data malformed.");
-else if($data["Type"]=="Delivery" && (!isset($data["DrugID"]) || !isset($data["PatientID"])))
+else if($data["Type"]=="Delivery" && (!isset($data["DrugID"]) || !isset($data["BedID"])))
     gracefulExit(400, false, "Request data malformed.");
 else if(in_array($data["Type"], ["Manual", "Automatic"]) && !isset($data["RobotID"]))
     gracefulExit(400, false, "Request data malformed.");
@@ -23,12 +23,12 @@ if($result = db_query("INSERT INTO
 			Requests(
 				Type,
 				DrugID,
-				PatientID,
+				BedID,
 				RobotID
 			) VALUES(
 				".bind($data["Type"]).",
 				".bind($data["DrugID"]).",
-				".bind($data["PatientID"]).",
+				".bind($data["BedID"]).",
 				".bind($data["RobotID"])."
 			);")) {
     if($result = db_query("SELECT * FROM fastmed_db.Requests WHERE ID = LAST_INSERT_ID()"))

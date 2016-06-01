@@ -1,0 +1,42 @@
+[
+  {
+    "Type": "Automatic",
+    "DrugID": null,
+    "BedID": null,
+    "UserID": 1,
+    "Acknowledged": "Yes",
+    "RobotID": 1
+  },
+  {
+    "Type": "Delivery",
+    "DrugID": 1,
+    "BedID": 1,
+    "UserID": 1,
+    "Acknowledged": "No",
+    "RobotID": 1
+  },
+  {
+    "Type": "Delivery",
+    "DrugID": 2,
+    "BedID": 1,
+    "UserID": 1,
+    "Acknowledged": "No",
+    "RobotID": 1
+  },
+  {
+    "Type": "Manual",
+    "DrugID": null,
+    "BedID": null,
+    "UserID": 1,
+    "Acknowledged": "No",
+    "RobotID": 1
+  },
+  {
+    "Type": "Delivery",
+    "DrugID": 2,
+    "BedID": 2,
+    "UserID": 1,
+    "Acknowledged": "No",
+    "RobotID": 1
+  }
+]
