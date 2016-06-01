@@ -33,6 +33,6 @@ if($result = db_query("INSERT INTO
     if($result = db_query("SELECT * FROM fastmed_db.Patients WHERE ID = LAST_INSERT_ID()"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));
     else
-        gracefulExit(400, false, "An error has occured. Please try again!");
+        gracefulExit(400, false, "An error has occurred. Please try again!");
 }
-else gracefulExit(400, false, "An error has occured. Please try again!");
+else gracefulExit(400, false, "An error has occurred. Please try again!");

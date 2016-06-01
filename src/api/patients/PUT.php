@@ -9,7 +9,7 @@ require_once "conn.php";
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($data['RobotID']))
+if (!isset($data['CNP']) || !isset($data['FirstName']) || !isset($data['LastName']) || !isset($data['Age']) || !isset($data['Address']) || !isset($data['Hositalized']) || !isset($data['Released']) || !isset($data['Diagnosis']) || !isset($data['BedID']))
     gracefulExit(400, false, "Request data malformed.");
 
 if (isset($_GET['filters'])) {
@@ -22,8 +22,15 @@ if (isset($_GET['filters'])) {
     }
 }
 
-if ($result = db_query("UPDATE Requests SET Acknowledged = " . bind("Yes") . ", RobotID = " . bind($data['RobotID']) . " WHERE (1=1) $whereCond;")) {
-    if ($result = db_query("SELECT * FROM fastmed_db.Requests WHERE (1=1) $whereCond"))
+foreach ($data as $key => $val) {
+    if(in_array($key, ['ID', 'CNP', 'FirstName', 'LastName', 'Age', 'Address', 'Hospitalized', 'Released', 'Diagnosis', 'BedID']))
+        $updateCond .=  ", ".$key." = ".bind($val);
+    else
+        gracefulExit(400, false, "Request data malformed.");
+}
+
+if ($result = db_query("UPDATE Patients SET ID=ID $updateCond WHERE (1=1) $whereCond;")) {
+    if ($result = db_query("SELECT * FROM fastmed_db.Patients WHERE (1=1) $whereCond"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));
     else
         gracefulExit(400, false, "An error has occurred. Please try again!");

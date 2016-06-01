@@ -11,6 +11,8 @@ else if($_SERVER['REQUEST_METHOD'] == 'DELETE')
     require 'patients/DELETE.php';
 else if($_SERVER['REQUEST_METHOD'] == 'POST')
     require 'patients/POST.php';
+else if($_SERVER['REQUEST_METHOD'] == 'PUT')
+    require 'patients/PUT.php';
 
 function gracefulExit($status, $success, $data)
 {
