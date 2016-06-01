@@ -31,11 +31,9 @@
 </head>
 
 <body ng-app="FastMed">
-
-<!--TODO: Implement dashboard errors-->
-<md-toolbar class="md-warn" ng-if="false">
+<md-toolbar ng-if="message" ng-class="message.type">
 	<div class="md-toolbar-tools" style="text-align: center;">
-		<span flex>A apărut o eroare...</span>
+		<span flex>{{message.text}}</span>
 	</div>
 </md-toolbar>
 	<md-toolbar ng-controller="toolbarController">

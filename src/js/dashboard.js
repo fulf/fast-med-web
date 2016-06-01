@@ -61,7 +61,7 @@ angular.module('FastMed', ['ngMaterial'])
     };
     $scope.loadPatients(1,20);
 })
-.controller('toolbarController', function($scope, $http, $mdDialog) {
+.controller('toolbarController', function($scope, $rootScope, $http, $mdDialog, $timeout) {
     $scope.logout = function(){
         $http({
             method: "DELETE",
@@ -80,9 +80,24 @@ angular.module('FastMed', ['ngMaterial'])
             clickOutsideToClose: true
         }).then(function(answer) {
             console.log("Success");
+            $rootScope.showMessage(false, "Patient added successfully!");
         }, function() {
+            $rootScope.showMessage(true, "Failed to add patient!");
             console.log("Error");
         });
+    }
+    
+    $rootScope.showMessage = function(error, message, time){
+        time = time || 3000;
+        $rootScope.message = {
+            text: message,
+            type: error ? "md-warn" : "md-primary"
+        };
+        $timeout($rootScope.removeMessage, time);
+    };
+
+    $rootScope.removeMessage = function(){
+        $rootScope.message = null;
     }
 })
 .controller('viewPatientController', function($scope, $mdDialog, patient){
