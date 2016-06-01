@@ -35,12 +35,9 @@ require "../../translator.php";
                     <div ng-if="state=='medicate'" style="margin: auto 0 auto 0px; width: 100%" flex>
                         <md-input-container style="width: 100%" flex>
                             <label><?php t("Drug") ?></label>
-                            <md-select ng-model="patient.Bed">
-                                <md-option value="x">
-                                    Nurofen Forte
-                                </md-option>
-                                <md-option value="x">
-                                    Ibuprofen
+                            <md-select ng-model="sentDrug" md-on-open="loadDrugs()">
+                                <md-option ng-repeat="drug in drugs" ng-value="{{drug.ID}}">
+                                    {{drug.Name}}
                                 </md-option>
                             </md-select>
                         </md-input-container>
@@ -77,12 +74,9 @@ require "../../translator.php";
                     <div style="margin-top: -6%">
                         <md-input-container style="width: 100%" flex>
                             <label><?php t("Assign bed") ?></label>
-                            <md-select ng-model="patient.Bed">
-                                <md-option value="x">
-                                    Marie Curie 1
-                                </md-option>
-                                <md-option value="x">
-                                    Marie Curie 2
+                            <md-select ng-model="patient.Bed" md-on-open="loadBeds()">
+                                <md-option ng-repeat="bed in beds" ng-value="{{bed.ID}}">
+                                    {{bed.Room}}
                                 </md-option>
                             </md-select>
                         </md-input-container>
