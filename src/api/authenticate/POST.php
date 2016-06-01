@@ -22,6 +22,9 @@ if($result = db_query("SELECT * FROM fastmed_db.Users WHERE Username = '$usernam
             unset($rs["Password"]);
             $_SESSION['login'] = 'ok';
             $_SESSION['UserID'] = $rs["ID"];
+            $_SESSION['FirstName'] = $rs["FirstName"];
+            $_SESSION['LastName'] = $rs["LastName"];
+            $_SESSION['Email'] = $rs["Email"];
             gracefulExit(200, true, $rs);
         }
     }

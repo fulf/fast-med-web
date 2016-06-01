@@ -2,7 +2,8 @@
 
 	session_start();
 	require "translator.php";
-	$_SESSION['language'] = "ro";
+	if(!isset($_SESSION['language']))
+		$_SESSION['language'] = "en";
 	if($_SESSION['login']=='ok')
 		header('Location: index.php');
 
@@ -20,6 +21,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <!-- Bootstrap style sheet -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<!-- Flag Icon CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css">
 <!-- Fast-Med Web Portal style sheet -->
 <link rel="stylesheet" href="css/login.css"/>
 </head>
@@ -31,7 +34,7 @@
 	<md-card class="login-card" ng-cloak ng-controller="loginController">
 		<md-card-title>
 			<md-card-title-text>
-				<div style="text-align: center;"><span class="md-headline"><?php t("Login")?>...</span></div>
+				<div style="text-align: center;"><span class="md-headline"><?php t("Login")?></span></div>
 			</md-card-title-text>
 		</md-card-title>
 		<md-card-content>
@@ -67,6 +70,10 @@
 			<md-button id="loginButton" class="md-raised md-primary login-actions" ng-disabled="!loginForm.$valid" ng-click="login()"><?php t("Login") ?></md-button>
 			<md-button id="recoveryButton" ng-disabled="true"><?php t("Password recovery") ?></md-button>
 			<md-button ng-click="runFixture()"><?php t("Run Fixtures") ?></md-button>
+			<div style="text-align: center">
+				<md-button ng-click="setLanguage('en')" class="md-icon-button <?=$_SESSION['language']=='en' ? 'selected' : ''?>"><span class="flag-icon flag-icon-gb"></span></md-button>
+				<md-button ng-click="setLanguage('ro')" class="md-icon-button <?=$_SESSION['language']=='ro' ? 'selected' : ''?>"><span class="flag-icon flag-icon-ro"></span></md-button>
+			</div>
 		</md-card-actions>
 	</md-card>
 </md-content>

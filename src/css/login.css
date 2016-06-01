@@ -19,3 +19,8 @@
 	width:25%;
 	align-self:center;
 }
+
+.selected {
+    -webkit-filter: saturate(0);
+    filter: saturate(0);
+}

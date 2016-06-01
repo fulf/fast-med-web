@@ -32,9 +32,25 @@ angular.module('FastMed', ['ngMaterial', 'ngMessages'])
                     $scope.state = 'error';
                 }
             );
-        }
+        };
+
+        $scope.setLanguage = function(lang){
+            $http({
+                method: 'POST',
+                url: 'api/language.php',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    'language': lang
+                }
+            }).then(
+                function(){
+                    location.reload();
+                });
+        };
 
         $scope.runFixture = function(){
             window.open("api/fixtures.php","_blank") ;
-        }
+        };
     });
