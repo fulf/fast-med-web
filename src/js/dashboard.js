@@ -1,3 +1,19 @@
+function t(s){
+    var DICTIONARY = {
+        'ro': {
+            'Patient added successfully!': 'Pacientul a fost adăugat cu succes!',
+            'Failed to add patient!': 'Nu s-a reușit adăugarea pacientului!',
+            'Release patient?': 'Externați pacientul?',
+            'This operation cannot be undone.': 'Această operație este ireversibilă.',
+            'Confirm': 'Confirmă',
+            'Cancel': 'Anulează'
+        }
+    };
+    if(DICTIONARY[lang] && DICTIONARY[lang][s])
+        return DICTIONARY[lang][s];
+    return s;
+}
+
 angular.module('FastMed', ['ngMaterial'])
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
@@ -80,15 +96,15 @@ angular.module('FastMed', ['ngMaterial'])
             clickOutsideToClose: true
         }).then(function(answer) {
             console.log("Success");
-            $rootScope.showMessage(false, "Patient added successfully!");
+            $rootScope.showMessage(false, t("Patient added successfully!"));
         }, function() {
-            $rootScope.showMessage(true, "Failed to add patient!");
+            $rootScope.showMessage(true, t("Failed to add patient!"));
             console.log("Error");
         });
     }
     
     $rootScope.showMessage = function(error, message, time){
-        time = time || 3000;
+        time = time || 1000;
         $rootScope.message = {
             text: message,
             type: error ? "md-warn" : "md-primary"
@@ -121,18 +137,18 @@ angular.module('FastMed', ['ngMaterial'])
     $scope.release = function(){
         //TODO: Implement releasing
         swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
+            title: t("Release patient?"),
+            text: t("This operation cannot be undone."),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: t("Confirm"),
+            cancelButtonText: t("Cancel"),
             closeOnConfirm: false
         }, function(){
-            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            swal("Pacientul a fost externat!", "", "success");
+            $mdDialog.hide();
         });
-
-        $mdDialog.hide();
     };
     $scope.medicate = function(){
         //TODO: Implement medication

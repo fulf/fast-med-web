@@ -108,6 +108,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <!-- Fast-Med Web Portal Javascript -->
 <script src="js/dashboard.js"></script>
+<script>lang='<?=$_SESSION['language']?>'</script>
 </body>
 
 </html>
