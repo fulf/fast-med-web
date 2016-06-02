@@ -17,11 +17,11 @@ if (isset($_GET['filters'])) {
     }
 }
 
-if ($result = db_query("SELECT COUNT(*) FROM fastmed_db.Errors WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir")) {
+if ($result = db_query("SELECT COUNT(*) FROM fastmed_db.ErrorLog WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir")) {
     $arr["total"] = mysqli_fetch_array($result)[0];
 }
 
-if ($result = db_query("SELECT * FROM fastmed_db.Errors WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir LIMIT $limit OFFSET $page ;")) {
+if ($result = db_query("SELECT * FROM fastmed_db.ErrorLog WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir LIMIT $limit OFFSET $page ;")) {
     while ($rs = mysqli_fetch_assoc($result))
         $arr["records"][] = $rs;
     gracefulExit(200, true, $arr);
