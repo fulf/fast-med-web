@@ -1,4 +1,10 @@
 <?php
+
+function bind($string)
+{
+    return isset($string) ? "'".$string."'" : "NULL";
+}
+
 require_once "conn.php";
 
 $requestsJSON = file_get_contents('../assets/fixtures/requests.json');
@@ -33,12 +39,12 @@ foreach ($requestsFixture as $id => $request) {
 				Acknowledged,
 				RobotID
 			) VALUES(
-				'".$request["Type"]."',
-				'".$request["DrugID"]."',
-				'".$request["BedID"]."',
-				'".$request["UserID"]."',
-				'".$request["Acknowledged"]."',
-				'".$request["RobotID"]."'
+				".bind($request["Type"]).",
+				".bind($request["DrugID"]).",
+				".bind($request["BedID"]).",
+				".bind($request["UserID"]).",
+				".bind($request["Acknowledged"]).",
+				".bind($request["RobotID"])."
 			);";
     if(db_query($query)) echo "<b>Success!</b><br/><br/>";
 }

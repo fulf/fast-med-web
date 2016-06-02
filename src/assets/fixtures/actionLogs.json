@@ -1,0 +1,17 @@
+[
+  {
+    "RequestID": 2,
+    "RobotID": 1,
+    "Status": "Started"
+  },
+  {
+    "RequestID": 2,
+    "RobotID": 1,
+    "Status": "Obstacle"
+  },
+  {
+    "RequestID": 2,
+    "RobotID": 1,
+    "Status": "Completed"
+  }
+]

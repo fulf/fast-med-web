@@ -1,5 +1,9 @@
 <?php
+
 require_once "conn.php";
+
+$actionLogJSON = file_get_contents('../assets/fixtures/beds.json');
+$actionLogFixture = json_decode($actionLogJSON, true);
 
 echo "<i>Dropping</i> existing ActionLog table.<br/>";
 if(db_query("DROP TABLE IF EXISTS ActionLog")) echo "<b>Success!</b><br/><br/>";
@@ -14,5 +18,19 @@ $query = "CREATE TABLE `ActionLog` (
           PRIMARY KEY (`ID`)
         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
 if(db_query($query)) echo "<b>Success!</b><br/><br/>";
+
+foreach ($actionLogFixture as $id => $actionLog) {
+    echo "<i>Inserting</i> bed ".($id+1).".<br/>";
+
+    $query = "INSERT INTO 
+			Beds(
+				Room,
+				RFID
+			) VALUES(
+				'".$bed["Room"]."',
+				'".$bed["RFID"]."'
+			);";
+    if(db_query($query)) echo "<b>Success!</b><br/><br/>";
+}
 
 echo "Done.<br/>";
