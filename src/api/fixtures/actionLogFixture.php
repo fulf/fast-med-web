@@ -2,7 +2,7 @@
 
 require_once "conn.php";
 
-$actionLogJSON = file_get_contents('../assets/fixtures/beds.json');
+$actionLogJSON = file_get_contents('../assets/fixtures/actionLogs.json');
 $actionLogFixture = json_decode($actionLogJSON, true);
 
 echo "<i>Dropping</i> existing ActionLog table.<br/>";
@@ -20,15 +20,17 @@ $query = "CREATE TABLE `ActionLog` (
 if(db_query($query)) echo "<b>Success!</b><br/><br/>";
 
 foreach ($actionLogFixture as $id => $actionLog) {
-    echo "<i>Inserting</i> bed ".($id+1).".<br/>";
+    echo "<i>Inserting</i> action log ".($id+1).".<br/>";
 
     $query = "INSERT INTO 
-			Beds(
-				Room,
-				RFID
+			ActionLog(
+				RequestID,
+				RobotID,
+				Status
 			) VALUES(
-				'".$bed["Room"]."',
-				'".$bed["RFID"]."'
+				'".$actionLog["RequestID"]."',
+				'".$actionLog["RobotID"]."',
+				'".$actionLog["Status"]."'
 			);";
     if(db_query($query)) echo "<b>Success!</b><br/><br/>";
 }

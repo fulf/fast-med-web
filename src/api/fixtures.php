@@ -11,3 +11,13 @@
 	include "fixtures/usersFixture.php";
 
 	echo "Finished fixtures!<br/><br/>";
+
+function gracefulExit($status, $success, $data)
+{
+	header('Content-Type: application/json');
+	http_response_code($status);
+	exit(json_encode(array(
+		"success"=>$success,
+		"data"=>$data
+	)));
+}
