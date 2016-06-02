@@ -66,7 +66,7 @@
 				<td style="text-align: center;" class="col-md-3">{{ patient.LastName }}</td>
 				<!-- <td>{{patient.CNP}}</td> -->
 				<td style="text-align: center;" class="col-md-1">{{ patient.Age }}</td>
-				<td style="text-align: center;" class="col-md-2">{{ patient.Diagnostic || "<?php t("Undiagnosed")?>" }}</td>
+				<td style="text-align: center;" class="col-md-2">{{ patient.Diagnosis || "<?php t("Undiagnosed")?>" }}</td>
 				<td style="text-align: center;" class="col-md-2">
 					<md-button class="md-icon-button" ng-click="viewPatient(patient)">
 						<md-icon><i class="fa fa-eye"></i></md-icon>
