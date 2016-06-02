@@ -21,7 +21,7 @@ if ($result = db_query("SELECT COUNT(*) FROM fastmed_db.Requests WHERE (1=1) $wh
     $arr["total"] = mysqli_fetch_array($result)[0];
 }
 
-if ($result = db_query("SELECT * FROM fastmed_db.Requests WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir LIMIT $limit OFFSET $page ;")) {
+if ($result = db_query("SELECT Requests.*, Beds.RFID as BedRFID, Beds.Room, Drugs.RFID as DrugRFID, Drugs.Name FROM fastmed_db.Requests LEFT JOIN fastmed_db.Beds ON Beds.ID = BedID LEFT JOIN fastmed_db.Drugs ON Drugs.ID = DrugID WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir LIMIT $limit OFFSET $page ;")) {
     while ($rs = mysqli_fetch_assoc($result))
         $arr["records"][] = $rs;
     gracefulExit(200, true, $arr);
