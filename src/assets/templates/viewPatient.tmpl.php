@@ -148,7 +148,7 @@ require "../../translator.php";
         <div ng-if="state=='history'">
             <md-button ng-click="back()">
                 <i class="fa fa-chevron-circle-left"></i>
-                <md-tooltip>Back</md-tooltip>
+                <md-tooltip><?php t("Back")?></md-tooltip>
             </md-button>
         </div>
     </md-dialog-actions>
