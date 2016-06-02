@@ -26,7 +26,7 @@ if($result = db_query("INSERT INTO
 				".bind($data["Email"]).",
 				".password_hash(bind($data["Password"]), PASSWORD_BCRYPT)."
 			);")) {
-    if($result = db_query("SELECT * FROM fastmed_db.Users WHERE ID = LAST_INSERT_ID()"))
+    if($result = db_query("SELECT * FROM fastmed_db.Users WHERE ID = (SELECT MAX(ID) FROM Users)"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));
     else
         gracefulExit(400, false, "An error has occurred. Please try again!");

@@ -12,8 +12,8 @@ $data = json_decode(file_get_contents('php://input'), true);
 if(!isset($data["RequestID"]) || !isset($data["RobotID"]) || !isset($data["Status"]))
     gracefulExit(400, false, "Request data malformed.");
 
-if(!in_array($data["Status"], ["Active", "Paused", "Canceled", "Completed"]))
-    gracefulExit(400, false, "Request data malformed.");
+//if(!in_array($data["Status"], ["Active", "Paused", "Canceled", "Completed"]))
+//    gracefulExit(400, false, "Request data malformed.");
 
 if($result = db_query("INSERT INTO 
 			ActionLog(
@@ -25,7 +25,7 @@ if($result = db_query("INSERT INTO
 				".bind($data["RobotID"]).",
 				".bind($data["Status"])."
 			);")) {
-    if($result = db_query("SELECT * FROM fastmed_db.ActionLog WHERE ID = LAST_INSERT_ID()"))
+    if($result = db_query("SELECT * FROM fastmed_db.ActionLog WHERE ID = (SELECT MAX(ID) FROM ActionLog)"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));
     else
         gracefulExit(400, false, "An error has occurred. Please try again!");

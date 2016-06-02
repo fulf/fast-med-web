@@ -25,7 +25,7 @@ if($result = db_query("INSERT INTO
 				".bind($data["RobotID"]).",
 				".bind($data["Type"])."
 			);")) {
-    if($result = db_query("SELECT * FROM fastmed_db.ErrorLog WHERE ID = LAST_INSERT_ID()"))
+    if($result = db_query("SELECT * FROM fastmed_db.ErrorLog WHERE ID = (SELECT MAX(ID) FROM ErrorLog)"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));
     else
         gracefulExit(400, false, "An error has occurred. Please try again!");

@@ -20,7 +20,7 @@ if($result = db_query("INSERT INTO
 				".bind($data["Name"]).",
 				".bind($data["RFID"])."
 			);")) {
-    if($result = db_query("SELECT * FROM fastmed_db.Drugs WHERE ID = LAST_INSERT_ID()"))
+    if($result = db_query("SELECT * FROM fastmed_db.Drugs WHERE ID = (SELECT MAX(ID) FROM Beds)"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));
     else
         gracefulExit(400, false, "An error has occurred. Please try again!");

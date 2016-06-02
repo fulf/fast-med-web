@@ -2,7 +2,7 @@
 
 function bind($string)
 {
-    return isset($string) ? "'".$string."', " : "NULL, ";
+    return isset($string) ? "'".$string."'" : "NULL";
 }
 
 require_once "conn.php";
@@ -22,15 +22,15 @@ if($result = db_query("INSERT INTO
 				Diagnosis,
 				BedID
 			) VALUES(
-				".bind($data["CNP"])."
-				".bind($data["FirstName"])."
-				".bind($data["LastName"])."
-				".bind($data["Age"])."
-				".bind($data["Address"])."
-				".bind($data["Diagnosis"])."
+				".bind($data["CNP"]).",
+				".bind($data["FirstName"]).",
+				".bind($data["LastName"]).",
+				".bind($data["Age"]).",
+				".bind($data["Address"]).",
+				".bind($data["Diagnosis"]).",
 				".bind($data["BedID"])."
 			);")) {
-    if($result = db_query("SELECT * FROM fastmed_db.Patients WHERE ID = LAST_INSERT_ID()"))
+    if($result = db_query("SELECT * FROM fastmed_db.Patients WHERE ID = (SELECT MAX(ID) FROM Patients)"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));
     else
         gracefulExit(400, false, "An error has occurred. Please try again!");
