@@ -11,6 +11,8 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 if(!isset($data["CNP"]) || !isset($data["FirstName"]) || !isset($data["LastName"]) || !isset($data["Age"]) || !isset($data["Address"]) || !isset($data["BedID"]))
     gracefulExit(400, false, "Request data malformed.");
+if(!$data["CNP"] || !$data["FirstName"] || !$data["LastName"] || !$data["Age"] || !$data["Address"] || !$data["BedID"])
+    gracefulExit(400, false, "Request data malformed.");
 
 if($result = db_query("INSERT INTO 
 			Patients(

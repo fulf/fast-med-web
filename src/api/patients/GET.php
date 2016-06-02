@@ -12,6 +12,8 @@ if (isset($_GET['filters'])) {
     foreach ($filters as $key => $val) {
         if (in_array($key, ['ID', 'PatientID', 'DrugID', 'BedID', 'UserID', 'RobotID', 'RequestID', 'RFID', 'ActionID']))
             $whereCond .= " AND " . $key . " = '" . $val . "'";
+        else if($key == 'Released' && $val == 'NULL')
+            $whereCond .= " AND Released IS NULL";
         else
             $whereCond .= " AND " . $key . " LIKE '%" . $val . "%'";
     }

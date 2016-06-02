@@ -4,7 +4,7 @@ require_once "conn.php";
 $limit = isset($_GET['limit']) ? $_GET['limit'] : 50;
 $page = $limit * ((isset($_GET['page']) ? $_GET['page'] : 1) - 1);
 
-$orderBy = isset($_GET['orderBy']) ? $_GET['orderBy'] : 'ID';
+$orderBy = isset($_GET['orderBy']) ? $_GET['orderBy'] : 'ActionLog.ID';
 $orderDir = isset($_GET['orderDir']) ? $_GET['orderDir'] : 'Asc';
 
 if (isset($_GET['filters'])) {
@@ -17,11 +17,10 @@ if (isset($_GET['filters'])) {
     }
 }
 
-if ($result = db_query("SELECT COUNT(*) FROM fastmed_db.ActionLog WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir")) {
+if ($result = db_query("SELECT COUNT(*) FROM fastmed_db.ActionLog LEFT JOIN fastmed_db.Requests ON ActionLog.RequestID = Requests.ID LEFT JOIN fastmed_db.Drugs ON Drugs.ID= Requests.DrugID LEFT JOIN fastmed_db.Robots ON Robots.ID= Requests.RobotID WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir")) {
     $arr["total"] = mysqli_fetch_array($result)[0];
 }
-
-if ($result = db_query("SELECT * FROM fastmed_db.ActionLog WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir LIMIT $limit OFFSET $page ;")) {
+if ($result = db_query("SELECT ActionLog.*, Drugs.Name as DrugName, Robots.Name as RobotName FROM fastmed_db.ActionLog LEFT JOIN fastmed_db.Requests ON ActionLog.RequestID = Requests.ID LEFT JOIN fastmed_db.Drugs ON Drugs.ID= Requests.DrugID LEFT JOIN fastmed_db.Robots ON Robots.ID= Requests.RobotID WHERE (1=1) $whereCond ORDER BY $orderBy $orderDir LIMIT $limit OFFSET $page ;")) {
     while ($rs = mysqli_fetch_assoc($result))
         $arr["records"][] = $rs;
     gracefulExit(200, true, $arr);

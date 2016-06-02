@@ -24,12 +24,14 @@ if($result = db_query("INSERT INTO
 				Type,
 				DrugID,
 				BedID,
-				RobotID
+				RobotID,
+				UserID
 			) VALUES(
 				".bind($data["Type"]).",
 				".bind($data["DrugID"]).",
 				".bind($data["BedID"]).",
-				".bind($data["RobotID"])."
+				".bind($data["RobotID"]).",
+				".$_SESSION['UserID']."
 			);")) {
     if($result = db_query("SELECT * FROM fastmed_db.Requests WHERE ID = (SELECT MAX(ID) FROM Requests)"))
         gracefulExit(200, true, mysqli_fetch_assoc($result));

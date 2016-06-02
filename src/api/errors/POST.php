@@ -17,7 +17,7 @@ if(!in_array($data["Type"], ["Line", "Bluetooth", "Obstacle", "Patient", "Drug",
 
 if($result = db_query("INSERT INTO 
 			ErrorLog(
-				RequestID,
+				ActionID,
 				RobotID,
 				Type
 			) VALUES(
