@@ -68,7 +68,7 @@
 		</md-card-content>
 		<md-card-actions layout="column" layout-align="start">
 			<md-button id="loginButton" class="md-raised md-primary login-actions" ng-disabled="!loginForm.$valid" ng-click="login()"><?php t("Login") ?></md-button>
-			<md-button id="recoveryButton" ng-disabled="true"><?php t("Password recovery") ?></md-button>
+			<md-button ng-if="false" id="recoveryButton" ng-disabled="true"><?php t("Password recovery") ?></md-button>
 			<md-button ng-click="runFixture()"><?php t("Run Fixtures") ?></md-button>
 			<div style="text-align: center">
 				<md-button ng-click="setLanguage('en')" ng-disabled="'<?=$_SESSION['language']?>'=='en'" class="md-icon-button <?=$_SESSION['language']=='en' ? 'selected' : ''?>"><span class="flag-icon flag-icon-gb"></span></md-button>
