@@ -44,7 +44,9 @@ function t($s)
             "Diagnosis" => "Diagnostic",
             "Confirm" => "Confirmare",
             "Cancel" => "Anulare",
-            "Back" => "Înapoi"
+            "Back" => "Înapoi",
+            "There are no records to be displayed" => "Nu există înregistrări pentru afișare",
+            "Room" => "Camera"
         )
     );
     session_start();

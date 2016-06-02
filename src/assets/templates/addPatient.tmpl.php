@@ -29,7 +29,7 @@
                     <div>
                         <md-input-container style="width: 100%" flex>
                             <label><?php t("Assign bed") ?></label>
-                            <md-select ng-model="patient.Bed" md-on-open="loadBeds()">
+                            <md-select ng-model="patient.BedID" md-on-open="loadBeds()">
                                 <md-option ng-repeat="bed in beds" ng-value="{{bed.ID}}">
                                     {{bed.Room}}
                                 </md-option>

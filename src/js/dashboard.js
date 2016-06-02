@@ -1,4 +1,5 @@
 function t(s) {
+    console.log(s);
     var DICTIONARY = {
         'ro': {
             'Patient added successfully!': 'Pacientul a fost adăugat cu succes!',
@@ -6,7 +7,16 @@ function t(s) {
             'Release patient?': 'Externați pacientul?',
             'This operation cannot be undone.': 'Această operație este ireversibilă.',
             'Confirm': 'Confirmă',
-            'Cancel': 'Anulează'
+            'Cancel': 'Anulează',
+            'The patient has been released!': 'Pacientul a fost externat!',
+            'Drug sent to delivery!': 'Medicament trimis spre livrare!',
+            'Patient updated succesfully!': 'Pacientul a fost updatat cu succes!',
+            'Failed to edit patient!': 'Modificarea pacientului a eșuat!',
+            'Started': 'Recepționat',
+            'Obstacle': 'Obstacol',
+            'Not found': 'Negăsit',
+            'Lost line': 'Pierdut linia',
+            'Completed': 'Livrat'
         }
     };
     if (DICTIONARY[lang] && DICTIONARY[lang][s])
@@ -27,6 +37,8 @@ angular.module('FastMed', ['ngMaterial'])
             Limit: 20
         };
 
+        $scope.t = t;
+
         $scope.viewPatient = function (patient) {
             $mdDialog.show({
                 controller: 'viewPatientController',
@@ -35,12 +47,7 @@ angular.module('FastMed', ['ngMaterial'])
                     patient: patient
                 },
                 clickOutsideToClose: true
-            })
-                .then(function (answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
-                }, function () {
-                    $scope.status = 'You cancelled the dialog.';
-                });
+            });
         }
     })
     .controller('navbarController', function ($scope, $rootScope, $http) {
@@ -59,7 +66,10 @@ angular.module('FastMed', ['ngMaterial'])
                 url: 'api/patients.php',
                 params: {
                     page: page,
-                    limit: limit
+                    limit: limit,
+                    filters: JSON.stringify({
+                        "Released": "NULL"
+                    })
                 }
             }).then(
                 function (response) {
@@ -76,6 +86,9 @@ angular.module('FastMed', ['ngMaterial'])
             );
         };
         $scope.loadPatients(1, 20);
+        setInterval(function() {
+            $scope.loadPatients($scope.page, $scope.limit);
+        }, 2000);
     })
     .controller('toolbarController', function ($scope, $rootScope, $http, $mdDialog, $timeout) {
         $scope.logout = function () {
@@ -94,14 +107,8 @@ angular.module('FastMed', ['ngMaterial'])
                 controller: 'addPatientController',
                 templateUrl: 'assets/templates/addPatient.tmpl.php',
                 clickOutsideToClose: true
-            }).then(function (answer) {
-                console.log("Success");
-                $rootScope.showMessage(false, t("Patient added successfully!"));
-            }, function () {
-                $rootScope.showMessage(true, t("Failed to add patient!"));
-                console.log("Error");
             });
-        }
+        };
 
         $rootScope.showMessage = function (error, message, time) {
             time = time || 1000;
@@ -114,13 +121,12 @@ angular.module('FastMed', ['ngMaterial'])
 
         $rootScope.removeMessage = function () {
             $rootScope.message = null;
-        }
+        };
     })
-    .controller('viewPatientController', function ($scope, $mdDialog, $http, patient) {
-        $scope.patient = patient;
+    .controller('viewPatientController', function ($rootScope, $scope, $mdDialog, $http, patient) {
+        $scope.patient = JSON.parse(JSON.stringify(patient));
         $scope.state = 'viewing';
         $scope.edit = function () {
-            //TODO: Implement editing
             $scope.state = 'editing';
         };
         $scope.loadBeds = function() {
@@ -131,23 +137,63 @@ angular.module('FastMed', ['ngMaterial'])
                 function (response) {
                     if (response.data.success) {
                         $scope.beds = response.data.data.records;
+                        $scope.patient.Bed = $scope.beds.find( function(val) { return val.ID == $scope.patient.BedID } );
                     }
                 }
             );
         };
+        $scope.loadBeds();
+
         $scope.save = function () {
-            //TODO: Implement saving
+            if($scope.state=='medicate')
+                $http({
+                    method: "POST",
+                    url: 'api/commands.php',
+                    data: {
+                        Type: "Delivery",
+                        DrugID: $scope.sentDrug,
+                        BedID: $scope.patient.BedID,
+                        RobotID: 1
+                    }
+                }).then(
+                    function (response) {
+                        if (response.data.success) {
+                            $scope.drugs = response.data.data.records;
+                            $rootScope.showMessage(false, t("Drug sent to delivery!"));
+                        }
+                    }
+                );
+            else
+                $http({
+                    method: "PUT",
+                    url: 'api/patients.php?filters={"ID":'+$scope.patient.ID+'}',
+                    data: {
+                        "CNP": $scope.patient.CNP,
+                        "FirstName": $scope.patient.FirstName,
+                        "LastName": $scope.patient.LastName,
+                        "Age": $scope.patient.Age,
+                        "Address": $scope.patient.Address,
+                        "Diagnosis": $scope.patient.Diagnosis,
+                        "BedID": $scope.patient.BedID
+                    }
+                }).then(
+                    function (response) {
+                            $scope.patient = response.data.data;
+                            $rootScope.showMessage(false, t("Patient updated succesfully!"));
+                    }, function() {
+                        $rootScope.showMessage(true, t("Failed to edit patient!"));
+                        $scope.patient=patient;
+                    }
+                );
             $scope.state = 'viewing';
         };
         $scope.cancel = function () {
-            //TODO: Cleanup canceling
             $scope.state = 'viewing';
         };
         $scope.close = function () {
             $mdDialog.hide();
         };
         $scope.release = function () {
-            //TODO: Implement releasing
             swal({
                 title: t("Release patient?"),
                 text: t("This operation cannot be undone."),
@@ -158,12 +204,16 @@ angular.module('FastMed', ['ngMaterial'])
                 cancelButtonText: t("Cancel"),
                 closeOnConfirm: false
             }, function () {
-                swal("Pacientul a fost externat!", "", "success");
-                $mdDialog.hide();
+                $http({
+                    method: "DELETE",
+                    url: 'api/patients.php?filters={"ID":'+$scope.patient.ID+'}'
+                }).then(function(){
+                    swal(t("The patient has been released!"), "", "success");
+                    $mdDialog.hide();
+                });
             });
         };
         $scope.medicate = function () {
-            //TODO: Implement medication
             $scope.state = "medicate";
         };
         $scope.loadDrugs = function() {
@@ -179,20 +229,45 @@ angular.module('FastMed', ['ngMaterial'])
             );
         };
         $scope.history = function () {
-            //TODO: Implement history
             $scope.state = "history";
+            $scope.ajax = true;
+            $http({
+                method: "GET",
+                url: 'api/requests.php?filters={"BedID":'+$scope.patient.BedID+'}&orderDir=DESC'
+            }).then(
+                function (response) {
+                    if (response.data.success) {
+                        $scope.logs = response.data.data.records;
+                        $scope.ajax = false;
+                        $scope.logs = $scope.logs.map( function(val) { val.Status = t(val.Status); return val } );
+                    }
+                }
+            );
+
         };
         $scope.back = function () {
             $scope.state = "viewing";
         }
     })
-    .controller('addPatientController', function ($scope, $mdDialog, $http) {
-        //TODO: Implement adding a patient
+    .controller('addPatientController', function ($rootScope, $scope, $mdDialog, $http) {
         $scope.patient = {};
         $scope.close = function () {
             $mdDialog.hide();
         };
         $scope.add = function () {
+            $http({
+                method: "POST",
+                url: 'api/patients.php',
+                data: $scope.patient
+            }).then(
+                function () {
+                    console.log('here');
+                    $rootScope.showMessage(false, t("Patient added successfully!"));
+                }, function() {
+                    console.log('or here');
+                    $rootScope.showMessage(true, t("Failed to add patient!"));
+                }
+            );
             $mdDialog.hide();
         };
         $scope.loadBeds = function() {
